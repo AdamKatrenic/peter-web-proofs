@@ -1,6 +1,18 @@
-'use client'
+import { client } from '../../sanity/lib/client'
+import { siteSettingsQuery } from '../../sanity/lib/queries'
 
-export default function Kontakt() {
+type SiteSettings = {
+  nazovFirmy?: string
+  telefon?: string
+  email?: string
+}
+
+export default async function Kontakt() {
+  const data: SiteSettings = await client.fetch(siteSettingsQuery)
+
+  const telefon = data?.telefon || '+421 900 000 000'
+  const email = data?.email || 'info@peterstrechy.sk'
+
   return (
     <section id="kontakt" className="py-20 md:py-36 px-6 md:px-20 bg-[#0f0f0f]">
       <div className="max-w-2xl mx-auto text-center">
@@ -23,13 +35,13 @@ export default function Kontakt() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-px justify-center">
-          <a href="tel:+421900000000"
+          <a href={`tel:${telefon.replace(/\s/g, '')}`}
             className="bg-[#e8612a] text-white font-[family-name:var(--font-oswald)] font-semibold text-lg uppercase tracking-wider px-10 py-6 no-underline hover:opacity-85 transition-opacity flex items-center justify-center gap-3">
-            📞 +421 900 000 000
+            📞 {telefon}
           </a>
-          <a href="mailto:info@peterstrechy.sk"
+          <a href={`mailto:${email}`}
             className="bg-[#1a1a1a] text-[#f0ece4] font-[family-name:var(--font-oswald)] font-medium text-lg uppercase tracking-wider px-10 py-6 no-underline hover:bg-[#222] transition-colors flex items-center justify-center gap-3">
-            ✉ info@peterstrechy.sk
+            ✉ {email}
           </a>
         </div>
       </div>
