@@ -3,7 +3,11 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-export default function Navbar() {
+type NavbarProps = {
+  nazovFirmy: string
+}
+
+export default function Navbar({ nazovFirmy }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -27,7 +31,7 @@ export default function Navbar() {
     }`}>
       <Link href="/" className="no-underline">
         <span className="font-[family-name:var(--font-oswald)] text-2xl font-bold uppercase tracking-wider text-[#f0ece4]">
-          Peter<span className="text-[#e8612a]">Strechy</span>
+          {nazovFirmy}
         </span>
       </Link>
 

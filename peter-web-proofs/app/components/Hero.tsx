@@ -1,6 +1,17 @@
 'use client'
 
-export default function Hero() {
+type HeroProps = {
+  heroText?: string
+  rokovSkusenosti?: number
+  pocetProjektov?: number
+}
+
+export default function Hero({ heroText, rokovSkusenosti, pocetProjektov }: HeroProps) {
+  const stats = [
+    { num: rokovSkusenosti ? `${rokovSkusenosti}+` : '15+', label: 'Rokov skúseností' },
+    { num: pocetProjektov ? `${pocetProjektov}+` : '300+', label: 'Realizácií' },
+  ]
+
   return (
     <section className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-[#0f0f0f]">
       {/* Background grid pattern */}
@@ -39,8 +50,7 @@ export default function Hero() {
 
         <p className="font-[family-name:var(--font-barlow)] font-light text-[#8a8278] max-w-md leading-relaxed mb-10"
           style={{ fontSize: 'clamp(16px, 2vw, 20px)' }}>
-          Realizujeme nové strechy, opravy aj rekonštrukcie.
-          Kvalitné materiály, skúsení remeselníci, férové ceny.
+          {heroText || 'Realizujeme nové strechy, opravy aj rekonštrukcie. Kvalitné materiály, skúsení remeselníci, férové ceny.'}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mb-10 md:mb-0">
@@ -54,12 +64,9 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Stats — mobile (súčasť flow, nie absolute) */}
+        {/* Stats — mobile */}
         <div className="flex gap-10 md:hidden pt-2 pb-6">
-          {[
-            { num: '15+', label: 'Rokov skúseností' },
-            { num: '300+', label: 'Realizácií' },
-          ].map(stat => (
+          {stats.map(stat => (
             <div key={stat.num}>
               <div className="font-[family-name:var(--font-oswald)] font-bold text-[#e8612a] text-4xl leading-none">
                 {stat.num}
@@ -72,12 +79,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Stats — desktop (absolute vpravo dole) */}
+      {/* Stats — desktop */}
       <div className="hidden md:flex absolute bottom-20 right-20 gap-12 z-10">
-        {[
-          { num: '15+', label: 'Rokov skúseností' },
-          { num: '300+', label: 'Realizácií' },
-        ].map(stat => (
+        {stats.map(stat => (
           <div key={stat.num} className="text-right">
             <div className="font-[family-name:var(--font-oswald)] font-bold text-[#e8612a] leading-none"
               style={{ fontSize: 'clamp(32px, 4vw, 52px)' }}>
