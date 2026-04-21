@@ -60,3 +60,4 @@ npm run dev
 ## Autor
 
 Adam Katrenic — [github.com/AdamKatrenic](https://github.com/AdamKatrenic)
+René Vajda — [github.com/ReneVajda1](https://github.com/ReneVajda1)
