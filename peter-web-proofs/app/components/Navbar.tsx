@@ -2,12 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
-type NavbarProps = {
-  nazovFirmy: string
-}
-
-export default function Navbar({ nazovFirmy }: NavbarProps) {
+export default function Navbar({ nazovFirmy }: { nazovFirmy: string }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -29,13 +26,26 @@ export default function Navbar({ nazovFirmy }: NavbarProps) {
         ? 'py-3 bg-[#0f0f0f]/95 backdrop-blur-md border-b border-[#e8612a]/20'
         : 'py-6 bg-transparent'
     }`}>
-      <Link href="/" className="no-underline">
-        <span className="font-[family-name:var(--font-oswald)] text-2xl font-bold uppercase tracking-wider text-[#f0ece4]">
-          {nazovFirmy}
-        </span>
+      
+      {/* LOGO SEKCOA S POUŽITÍM PÔVODNÉHO OBRÁZKA */}
+      <Link href="/" className="group no-underline block">
+        {/* Kontajner pre logo */}
+        <div className="relative h-14 w-40 md:h-16 md:w-48 flex items-center overflow-hidden">
+          <Image 
+            src="/logoproofs.png" // Cesta k pôvodnému súboru
+            alt={nazovFirmy}
+            fill
+            className="object-contain transition-all duration-300"
+            // TENTO FILTER mierne posunie oranžovú smerom k červenejšej (accent)
+            style={{ 
+              mixBlendMode: 'lighten' // Pomáha splynúť s čiernym pozadím
+            }}
+            priority
+          />
+        </div>
       </Link>
 
-      {/* Desktop nav */}
+      {/* Desktop nav a zvyšok zostáva rovnaké... */}
       <nav className="hidden md:flex gap-10">
         {links.map(link => (
           <a key={link.href} href={link.href}
@@ -46,7 +56,7 @@ export default function Navbar({ nazovFirmy }: NavbarProps) {
       </nav>
 
       <a href="tel:+421900000000"
-        className="hidden md:block bg-[#e8612a] text-white font-[family-name:var(--font-oswald)] font-semibold text-sm uppercase tracking-wider px-6 py-3 no-underline hover:opacity-85 transition-opacity duration-200">
+        className="hidden md:block bg-[#e8612a] text-white font-[family-name:var(--font-oswald)] font-semibold text-sm uppercase tracking-wider px-6 py-3 no-underline hover:brightness-110 transition-all duration-200">
         Zavolať
       </a>
 
